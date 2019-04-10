@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Chris</title>
+  <link rel="stylesheet" type="text/css" href="./dist/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sample Website of Chris G">
+  <meta name="Sample Website of Chris G" content="">
+  <link href="http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300" rel="stylesheet" type="text/css">
+  <link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <span class="logo">Chris' WebSite</span>
+    <a id="toggleMenu">Menu<a></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.php">Contact</a></li>
+        </ul>
+      </nav>
+  </header>
+  <div id="cv" class="instaFade">
+    <main class="quickFade delayOne">
+      <h1 class="quickFade delayTwo">Hello, and Welcome. I am Chris.</h1>
+      <img class="avatar" src="http://weightofthought.com/wp-content/uploads/2017/07/Weight-of-Thought.jpg"
+        alt="Noah's Arc 3000" <p>
+      Hey there, I love to build things. I can create anything that you think of if you can describe it. Just ask!
+      <div calss="quickFade delayThree">
+        "IF YOU BUILD IT THEY WILL COME!!!"
+      </div>
+      </p>
+    </main>
+  </div>
+  <script>
+    var toggleMenu = document.getElementById('toggleMenu');
+    var nav = document.querySelector('nav');
+    toggleMenu.addEventListener(
+      'click',
+      function () {
+        if (nav.style.display == 'block') {
+          nav.style.display = 'none';
+        } else {
+          nav.style.display = 'block';
+        }
+      }
+    );
+  </script>
+</body>
+
+</html>

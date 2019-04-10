@@ -54,12 +54,39 @@ main {
   /* For smaller screens to not exceed the max screen width */
   max-width: 100%; }
 
+#thanks {
+  margin-top: 60px;
+  margin-left: 200px; }
+
 #table1 {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 300px; }
+
+#tablehead {
+  margin-top: 75px;
+  margin-left: 200px; }
 
 #toggleMenu {
   display: none; }
+
+button {
+  margin-left: 150px; }
+
+button {
+  width: 150px;
+  font-size: 1.1rem;
+  line-height: 2;
+  border-radius: 10px;
+  border: none;
+  background-image: linear-gradient(to bottom right, #777, #ddd);
+  box-shadow: 1px 1px 1px black, inset 2px 3px 5px rgba(0, 0, 0, 0.3), inset -2px -3px 5px rgba(255, 255, 255, 0.5); }
+
+button:focus,
+button:hover {
+  background-image: linear-gradient(to bottom right, #888, #eee); }
+
+button:active {
+  box-shadow: inset 2px 2px 1px black, inset 2px 3px 5px rgba(0, 0, 0, 0.3), inset -2px -3px 5px rgba(255, 255, 255, 0.5); }
 
 @media only screen and (max-width: 960px) {
   nav {

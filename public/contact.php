@@ -40,10 +40,10 @@ if(!empty($input)){
   $valid->check($input);
 
   if(empty($valid->errors)){
-      $message = "<div class=\"message-success\">Your form has been submitted!</div>";
+      $message = "<div class=\"alert alert-success\">Your form has been submitted!</div>";
       //header('Location: thanks.php');
   }else{
-      $message = "<div class=\"message-error\">Your form has errors!</div>";
+      $message = "<div class=\"alert alert-danger\">Your form has errors!</div>";
   }
 }
 
@@ -60,71 +60,39 @@ $content=<<<EOT
 
     {$message}
     
-    <form action="contact.php" method="POST">
+<form action="contact.php" method="POST">
+  
+  <input type="hidden" name="subject" value="New submission!">
+  
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input class="form-control" id="firstName" type="text" name="name" value="{$valid->userInput('name')}">
+    <div class="text-danger">{$valid->error('name')}</div>
+  </div>
 
-    <table id="table1" height="500px width="900px">
-      <thead>
-        <div id="tablehead">Please Fill out a Contact Form and I will get back to you as soon as possible.</div>
-      </thead>
-      <tbody class="quickFade">
-        <tr class="quickFade delayOne">
-          <td valign="top">
-            <label for="first_name">First Name *</label>
-          </td>
-          <td valign="top">
-            <input id="firstName" type="text" name="firstName" maxlength="50" size="30">
-            <div class="text-error">{$valid->error('firstName')}</div>
-          </td>
-        </tr>
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input class="form-control" id="lastName" type="text" name="name" value="{$valid->userInput('name')}">
+    <div class="text-danger">{$valid->error('name')}</div>
+  </div>
 
-        <tr class="quickFade delayTwo">
-          <td valign="top"">
-            <label for="last_name">Last Name *</label>
-          </td>
-          <td valign="top">
-            <input id="lastName" type="text" name="lastName" maxlength="50" size="30">
-            <div class="text-error">{$valid->error('lastName')}</div>
-          </td>
-        </tr>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input class="form-control" id="email" type="text" name="email" value="{$valid->userInput('email')}">
+    <div class="text-danger">{$valid->error('email')}</div>
+  </div>
 
-        <tr class="quickFade delayThree">
-          <td valign="top">
-            <label for="email">Email Address *</label>
-          </td>
-          <td valign="top">
-            <input id="email" type="text" name="email" maxlength="80" size="30">
-            <div class="text-error">{$valid->error('email')}</div>
-          </td>
-        </tr>
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <textarea class="form-control" id="message" name="message">{$valid->userInput('message')}</textarea>
+    <div class="text-danger">{$valid->error('message')}</div>
+  </div>
 
-        <tr class="quickFade delayFour">
-          <td valign="top">
-            <label for="telephone">Telephone Number</label>
-          </td>
-          <td valign="top">
-            <input type="text" name="telephone" maxlength="30" size="30">
-          </td>
-        </tr>
+  <div class="form-group">
+    <input class="btn btn-primary" type="submit" value="Send">
+  </div>
 
-        <tr class="quickFade delayFive">
-          <td valign="top">
-            <label for="comment">Comments *</label>
-          </td>
-          <td valign="top">
-            <textarea id="comment" name="comment" maxlength="1000" cols="25" rows="6"></textarea>
-            <div class="text-error">{$valid->error('message')}</div>
-          </td>
-        </tr>
-
-        <tr class="quickFade delaySix">
-          <td colspan="2" style="text-align:center">
-            <button>Submit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-
+</form>
   <div>
     <input type="hidden" name="subject" value="New submission!">
   </div>

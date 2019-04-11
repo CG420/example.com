@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-	<title>Chris' Sample Resume</title>
-	<link rel="stylesheet" type="text/css" href="./dist/css/resume.css">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Sample Resume of Chris G">
-	<meta name="Sample Resume of Chris G" content="">
-	<link href="http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300" rel="stylesheet" type="text/css">
-	<link href="favicon.ico" rel="icon" type="image/x-icon" />
-	<!--[if lt IE 9]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-</head>
-<header>
-	<span class="logo">Chris' WebSite</span>
-	<a id="toggleMenu">Menu<a></a>
-		<nav>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li><a href="resume.html">Resume</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
-		</nav>
-</header>
+$meta=[];
+$meta['title']='Chris\' Resume';
+
+$content=<<<EOT
 
 <body id="top">
 	<div id="cv" class="instaFade">
@@ -135,7 +114,7 @@
 								<li>Developed and implemented procedures and guidelines, optimizing productivity and
 									efficiency;
 									generating significant cost savings.
-									<?li>
+								</li>
 							<li>Recognized for the development of excellent business relationships, providing exemplary customer service.</li>
 						</ul>
 					</p>
@@ -201,15 +180,7 @@
 		
 	</div>
 </div>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-3753241-1");
-pageTracker._initData();
-pageTracker._trackPageview();
-</script>
 
-    </body>
-</html>
+EOT;
+
+require '../core/layout.php';

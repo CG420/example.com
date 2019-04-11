@@ -1,90 +1,64 @@
 <?php
-//Include non-vendor files
-require '../core/About/src/Validation/Validate.php';
-
-//Declare Namespaces
+require '../core/processContactForm.php';
+//Declare namespaces
 use About\Validation;
-
-//Validate Declarations
 $valid = new About\Validation\Validate();
 $args = [
-  'name'=>FILTER_SANITIZE_STRING,
-  'subject'=>FILTER_SANITIZE_STRING,
-  'message'=>FILTER_SANITIZE_STRING,
+  'firstName'=>FILTER_SANITIZE_STRING,
+  'lastName'=>FILTER_SANITIZE_STRING,
   'email'=>FILTER_SANITIZE_EMAIL,
+  'subject'=>FILTER_SANITIZE_STRING,
+  'comment'=>FILTER_SANITIZE_STRING,
 ];
 $input = filter_input_array(INPUT_POST, $args);
 
+$message=null;
 if(!empty($input)){
 
-    $valid->validation = [
-        'first_name'=>[[
-            'rule'=>'notEmpty',
-            'message'=>'Please enter your first name'
-        ]],
-        'last_name'=>[[
-            'rule'=>'notEmpty',
-            'message'=>'Please enter your last name'
-        ]],
-        'email'=>[[
-                'rule'=>'email',
-                'message'=>'Please enter a valid email'
+  $valid->validation = [        
+      'firstName'=>[[
+          'rule'=>'notEmpty',
+          'message'=>'Please enter your first name'
+      ]],
+      'lastName'=>[[
+        'rule'=>'notEmpty',
+        'message'=>'Please enter your last name'
+      ]],
+      'email'=>[[
+        'rule'=>'email',
+        'message'=>'Please enter a valid email'
             ],[
-                'rule'=>'notEmpty',
-                'message'=>'Please enter an email'
-        ]],
-        'subject'=>[[
-            'rule'=>'notEmpty',
-            'message'=>'Please enter a subject'
-        ]],
-        'message'=>[[
-            'rule'=>'notEmpty',
-            'message'=>'Please add a message'
-        ]],
-    ];
+              'rule'=>'notEmpty',
+              'message'=>'Please enter an email'
+      ]],
+      'comment'=>[[
+          'rule'=>'notEmpty',
+          'message'=>'Please add a comment'
+      ]],
+  ];
 
+  $valid->check($input);
 
-    $valid->check($input);
+  if(empty($valid->errors)){
+      $message = "<div class=\"message-success\">Your form has been submitted!</div>";
+      //header('Location: thanks.php');
+  }else{
+      $message = "<div class=\"message-error\">Your form has errors!</div>";
+  }
 }
 
-if(empty($valid->errors) && !empty($input)){
-    $message = "<div>Success!</div>";
-}else{
-    $message = "<div>Error!</div>";
-}
+$meta=[];
+$meta['title']='Contact Chris';
+$meta['description']='My Contact Page';
+$meta['keywords']=false;
 
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Chris</title>
-  <link rel="stylesheet" type="text/css" href="./dist/css/contact.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<header>
-  <span class="logo">Chris' WebSite</span>
-  <a id="toggleMenu">Menu<a></a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="contact.php">Contact</a></li>
-      </ul>
-    </nav>
-</header>
-
-<body>
-  <div id="cv" class="instaFade">
+$content=<<<EOT
   <form action="contact.php" method="POST">
     <div id=thanks class="quickFade">
       Thank you for taking interest in having something creatively constructed by Chris. It will be a pleasure to serve you.
     </div>
 
-    <?php echo (!empty($message)?$message:null); ?>
+    {$message}
     
     <form action="contact.php" method="POST">
 
@@ -98,8 +72,8 @@ if(empty($valid->errors) && !empty($input)){
             <label for="first_name">First Name *</label>
           </td>
           <td valign="top">
-            <input id="firstName" type="text" name="first_name" maxlength="50" size="30">
-            <div class="text-error"><?php echo $valid->error('firstName'); ?></div>
+            <input id="firstName" type="text" name="firstName" maxlength="50" size="30">
+            <div class="text-error">{$valid->error('firstName')}</div>
           </td>
         </tr>
 
@@ -108,8 +82,8 @@ if(empty($valid->errors) && !empty($input)){
             <label for="last_name">Last Name *</label>
           </td>
           <td valign="top">
-            <input id="lastName" type="text" name="last_name" maxlength="50" size="30">
-            <div class="text-error"><?php echo $valid->error('lastName'); ?></div>
+            <input id="lastName" type="text" name="lastName" maxlength="50" size="30">
+            <div class="text-error">{$valid->error('lastName')}</div>
           </td>
         </tr>
 
@@ -119,7 +93,7 @@ if(empty($valid->errors) && !empty($input)){
           </td>
           <td valign="top">
             <input id="email" type="text" name="email" maxlength="80" size="30">
-            <div class="text-error"><?php echo $valid->error('email'); ?></div>
+            <div class="text-error">{$valid->error('email')}</div>
           </td>
         </tr>
 
@@ -134,11 +108,11 @@ if(empty($valid->errors) && !empty($input)){
 
         <tr class="quickFade delayFive">
           <td valign="top">
-            <label for="comments">Comments *</label>
+            <label for="comment">Comments *</label>
           </td>
           <td valign="top">
-            <textarea id="comments" name="comments" maxlength="1000" cols="25" rows="6"></textarea>
-            <div class="text-error"><?php echo $valid->error('message'); ?></div>
+            <textarea id="comment" name="comment" maxlength="1000" cols="25" rows="6"></textarea>
+            <div class="text-error">{$valid->error('message')}</div>
           </td>
         </tr>
 
@@ -155,6 +129,6 @@ if(empty($valid->errors) && !empty($input)){
     <input type="hidden" name="subject" value="New submission!">
   </div>
 </div>
-</body>
+EOT;
 
-</html>
+require '../core/layout.php';

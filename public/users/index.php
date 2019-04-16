@@ -1,5 +1,10 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 require '../../core/db_connect.php';
+
+checkSession();
 
 $stmt = $pdo->query("SELECT * FROM users");
 
@@ -11,8 +16,8 @@ $items=null;
 while($row = $stmt->fetch()){
   //var_dump($row);
     $items.=
-        "<a href=\"view.php?email={$row['email']}\" class=\"list-group-item\">".
-        "{$row['first_name']}</a>";
+        "<a href=\"view.php?id={$row['id']}\" class=\"list-group-item\">".
+        "{$row['first_name']}, {$row['last_name']}</a>";
 }
 
 $content=<<<EOT

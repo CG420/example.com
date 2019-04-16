@@ -1,4 +1,7 @@
 <?php
+//Usage
+require '../core/session.php';
+//checkSession();
 
 $meta=[];
 $meta['title']='Chris\' Website';

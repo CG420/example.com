@@ -1,5 +1,8 @@
 <?php
-include '../../core/db_connect.php';
+//Usage
+require '../../core/session.php';
+//checkSession();
+require '../../core/db_connect.php';
 
 $args = [
     'slug'=>FILTER_SANITIZE_STRING

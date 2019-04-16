@@ -1,26 +1,28 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 include '../../core/db_connect.php';
 
+checkSession();
+
 $args = [
-    'email'=>FILTER_SANITIZE_EMAIL
+    'id'=>FILTER_SANITIZE_STRING
 ];
 
 $input = filter_input_array(INPUT_GET, $args);
-$email = preg_replace("/[^a-z0-9-]+/", "", $input['email']);
 
-$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
-$stmt->execute([$email]);
+$stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');
+$stmt->execute(['id'=>$input['id']]);
 
 $row = $stmt->fetch();
 
 $meta=[];
-$meta['first_name']=$row['first_name'];
-$meta['description']=$row['meta_description'];
-$meta['keywords']=$row['meta_keywords'];
+$meta['title']="{$row['first_name']} {$row['last_name']}";
 
 $content=<<<EOT
-<h1>{$row['first_name']}</h1>
-{$row['last_name']}
+<h1>{$meta['title']}</h1>
+{$row['email']}
 
 <hr>
 <div>

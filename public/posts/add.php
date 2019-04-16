@@ -1,8 +1,13 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 require '../../core/functions.php';
 require '../../config/keys.php';
 require '../../core/db_connect.php';
 require '../../core/About/src/Validation/Validate.php';
+
+checkSession();
 
 use About\Validation;
 
@@ -30,6 +35,7 @@ if(!empty($input)){
     ];
 
     $valid->check($input);
+   
     if(empty($valid->errors)){
         //2. Only process if we pass validation
 

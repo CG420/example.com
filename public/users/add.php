@@ -1,8 +1,13 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 require '../../core/functions.php';
 require '../../config/keys.php';
 require '../../core/db_connect.php';
 require '../../core/About/src/Validation/Validate.php';
+
+checkSession();
 
 use About\Validation;
 
@@ -13,9 +18,7 @@ $message=null;
 $args = [
     'first_name'=>FILTER_SANITIZE_STRING, //strips HMTL
     'last_name'=>FILTER_SANITIZE_STRING, //strips HMTL
-    'meta_description'=>FILTER_SANITIZE_STRING, //strips HMTL
-    'meta_keywords'=>FILTER_SANITIZE_STRING, //strips HMTL
-    'email'=>FILTER_UNSAFE_RAW  //NULL FILTER
+    'email'=>FILTER_SANITIZE_STRING, //strips HMTL
 ];
 
 $input = filter_input_array(INPUT_POST, $args);
@@ -29,10 +32,24 @@ if(!empty($input)){
         'first_name'=>[[
             'rule'=>'notEmpty',
             'message'=>'Please enter a first_name'
-        ]]
+        ]],
+
+        'last_name'=>[[
+            'rule'=>'notEmpty',
+            'message'=>'Please enter a last name'
+        ]],
+        
+        'email'=>[[
+            'rule'=>'email',
+            'message'=>'Please enter a valid email'
+        ],[
+            'rule'=>'notEmpty',
+            'message'=>'Please enter a email'
+        ]],
     ];
 
     $valid->check($input);
+
     if(empty($valid->errors)){
         //2. Only process if we pass validation
 
@@ -40,7 +57,7 @@ if(!empty($input)){
         $input = array_map('trim', $input);
     
         //Sanitiezed insert
-        $sql = 'INSERT INTO users SET id=uuid(), first_name=:first_name, last_name=:last_name, email=:email';
+        $sql = 'INSERT INTO users SET id=UUID(), first_name=:first_name, last_name=:last_name, email=:email';
     
         if($pdo->prepare($sql)->execute([
             'first_name'=>$input['first_name'],
@@ -89,6 +106,7 @@ $content = <<<EOT
 <div class="form-group">
     <input type="submit" value="Submit" class="btn btn-primary">
 </div>
+
 </form>
 EOT;
 

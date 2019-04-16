@@ -1,8 +1,13 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 require '../../core/functions.php';
 require '../../config/keys.php';
 require '../../core/db_connect.php';
 require '../../core/About/src/Validation/Validate.php';
+
+checkSession();
 
 use About\Validation;
 
@@ -11,6 +16,7 @@ $valid = new About\Validation\Validate();
 $message=null;
 
 $args = [
+    'id'=>FILTER_SANITIZE_STRING, //strips HMTL
     'first_name'=>FILTER_SANITIZE_STRING, //strips HMTL
     'last_name'=>FILTER_SANITIZE_STRING, //strips HMTL
     'email'=>FILTER_UNSAFE_RAW  //NULL FILTER
@@ -18,13 +24,26 @@ $args = [
 
 $input = filter_input_array(INPUT_POST, $args);
 
+//var_dump($input);
+
 //1. First validate
 if(!empty($input)){
 
     $valid->validation = [
+
+        'email'=>[[
+            'rule'=>'email',
+            'message'=>'Please enter a valid email'
+        ]],
+
         'first_name'=>[[
             'rule'=>'notEmpty',
             'message'=>'Please enter a first_name'
+        ]],
+        
+        'last_name'=>[[
+            'rule'=>'notEmpty',
+            'message'=>'Please enter a last name'
         ]]
     ];
 
@@ -32,21 +51,10 @@ if(!empty($input)){
 
     if(empty($valid->errors)){
         //2. Only process if we pass validation
-
         //Strip white space, begining and end
         $input = array_map('trim', $input);
-    
-        //Allow only whitelisted HTML
-        $input['first_name'] = cleanHTML($input['first_name']);
-    
-        //Allow only whitelisted HTML
-        $input['last_name'] = cleanHTML($input['last_name']);
-
-        //Create the email
-        $email = email($input['email']);
-    
         //Sanitiezed insert
-        $sql = 'UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email';
+        $sql = 'UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email WHERE id=:id';
     
         if($pdo->prepare($sql)->execute([
             'id'=>$input['id'],
@@ -71,12 +79,12 @@ $args = [
     'id'=>FILTER_SANITIZE_STRING
 ];
 
-$getParams = filter_input_array(INPUT_GET, $args);
+$params = filter_input_array(INPUT_GET, $args);
 
 $sql = 'SELECT * FROM users WHERE id=:id';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
-    'id'=>$getParams['id']
+    'id'=>$params['id']
 ]);
 
 $row = $stmt->fetch();
@@ -95,12 +103,14 @@ if(!empty($input)){
 }
 
 $meta=[];
-$meta['title']='Edit: ' . $fields['title'];
+$meta['email']='Edit: ' .$fields['email'];
 
 $content = <<<EOT
-<h1>{$meta['title']}</h1>
+
+<h1>{$meta['email']}</h1>
 
 {$message}
+
 <form method="post">
 
 <input name="id" type="hidden" value="{$fields['id']}">

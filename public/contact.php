@@ -1,4 +1,7 @@
 <?php
+//Usage
+require '../core/session.php';
+//checkSession();
 require '../core/processContactForm.php';
 //Declare namespaces
 use About\Validation;

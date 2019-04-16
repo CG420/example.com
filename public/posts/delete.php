@@ -1,5 +1,10 @@
 <?php
+//Usage
+require '../../core/session.php';
+//checkSession();
 include '../../core/db_connect.php';
+
+checkSession();
 
 $args = [
     'id'=>FILTER_SANITIZE_STRING

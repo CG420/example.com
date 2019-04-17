@@ -15,7 +15,7 @@ $goto=!empty($_GET['goto'])?$_GET['goto']:'/';
 
 $content=<<<EOT
 <form method="post">
-    <input name="goto" vale="{GET['goto']}">
+    <input name="goto" value="{$goto}">
     <input type="submit" class="btn btn-primary">
 </form>
 EOT;

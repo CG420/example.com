@@ -45,17 +45,17 @@
                 <a class="nav-link" href="/resume.php">Resume</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users">Users</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/contact.php">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register.php">Register</a>
             </li>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/login.php">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register.php">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Users</a>
             </li>
             </li>
             <li class="nav-item">

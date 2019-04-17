@@ -31,7 +31,7 @@ if(!empty($input)){
     $valid->validation = [
         'first_name'=>[[
             'rule'=>'notEmpty',
-            'message'=>'Please enter a first_name'
+            'message'=>'Please enter a first name'
         ]],
 
         'last_name'=>[[
@@ -52,7 +52,6 @@ if(!empty($input)){
 
     if(empty($valid->errors)){
         //2. Only process if we pass validation
-
         //Strip white space, begining and end
         $input = array_map('trim', $input);
     

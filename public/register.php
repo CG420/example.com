@@ -17,7 +17,7 @@ $input = filter_input_array(INPUT_POST,[
     'confirm_password'=>FILTER_UNSAFE_RAW
 ]);
 
-if(!empty($_POST)){
+if(!empty($input)){
     $valid->validation = [
         'first_name'=>[[
             'rule'=>'notEmpty',

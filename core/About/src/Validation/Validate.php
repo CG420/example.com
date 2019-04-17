@@ -34,23 +34,23 @@ class Validate{
 
         $strong=0;
 
-        if(strlen($value)<8){
+        if(strlen($value)>=8){
             $strong++;
         }
 
-        if(!preg_match("([\W]{1,})", $value)){
+        if(preg_match("([\W]{1,})", $value)){
             $strong++;
         }
 
-        if(!preg_match("([a-z]{1,})", $value)){
+        if(preg_match("([a-z]{1,})", $value)){
             $strong++;
         }
 
-        if(!preg_match("([A-Z]{1,})", $value)){
+        if(preg_match("([A-Z]{1,})", $value)){
             $strong++;
         }
 
-        if(!preg_match("([0-9]{1,})", $value)){
+        if(preg_match("([0-9]{1,})", $value)){
             $strong++;
         }
 

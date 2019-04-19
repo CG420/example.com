@@ -1,6 +1,6 @@
 <?php
 //Usage
-require '../../core/session.php';
+require '../../core/bootstrap.php';
 //checkSession();
 require '../../core/functions.php';
 require '../../config/keys.php';
